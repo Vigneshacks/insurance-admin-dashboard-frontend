@@ -66,7 +66,7 @@ It focuses on **frontend architecture, role-based access control (RBAC), and sca
 ## 🎥 Demo Video
 
 📽 **Project Demo**  
-👉 _Add your video link here (YouTube / Google Drive)_
+👉 https://drive.google.com/file/d/1CHyBslluaiPF0G8_OQd2FA8jKz5opoFj/view?usp=sharing
 
 The video demonstrates:
 - Login with different roles
