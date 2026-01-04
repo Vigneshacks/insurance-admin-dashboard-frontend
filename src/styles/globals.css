@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+.custom-dotted-border {
+  border: 2px dotted blue; /* Adjust the border width and color */
+  border-radius: 4px; /* Optional: Add border radius */
+}
+
+.table-container {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table-header {
+  font-weight: bold;
+  background-color: #f7fafc;
+  border-bottom: 2px solid #e2e8f0;
+  padding: 8px 16px;
+}
+
+.table-row:hover {
+  background-color: #edf2f7;
+}
+
+/* Table Container */
+.table-container {
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* Styled Table */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+.styled-table thead tr {
+  background-color: #f4f4f4;
+  color: #333;
+  text-align: left;
+  font-weight: bold;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.styled-table tbody tr:nth-of-type(odd) {
+  background-color: #fff;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Sorting Icons */
+.sortable-header {
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.sort-icon {
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.pagination button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 14px;
+}
+
+html,
+body {
+  overflow: hidden; /* Hides both vertical and horizontal scrollbars */
+}
+
+/* tables.css */
+.table-container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 0;
+}
+
+.overflow-x-auto {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.fixed-pagination {
+  background: white;
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.table-container {
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(242, 243, 245, 1);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(200, 202, 205, 1);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(180, 183, 187, 1);
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200, 202, 205, 1) rgba(242, 243, 245, 1);
+}
+
+.overflow-x-auto {
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.styled-table {
+  border: none !important;
+}
+
+.styled-table th {
+  padding: 8px 16px !important;
+  white-space: nowrap;
+  text-align: left;
+  border: none !important;
+  position: relative;
+  font-size: 12px;
+}
+
+.styled-table th:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.styled-table td {
+  padding: 6px 16px !important;
+  white-space: nowrap;
+  text-align: left;
+  border: none !important;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.menu-option {
+  padding: 8px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.menu-option:hover {
+  background-color: #f3f4f6;
+}
+.scrollbar-none{
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+input[type="date"]:focus {
+  outline: none;
+  border: none;
+}
+.label-color {
+  color: #334155;
+}

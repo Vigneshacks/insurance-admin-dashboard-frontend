@@ -1,0 +1,18 @@
+.sidebar-nav-link {
+  color: #919191;
+  width: 139px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-nav-link img {
+  width: 24px; /* Adjust the width of the icon if needed */
+  height: 24px; /* Adjust the height of the icon if needed */
+}
+
+.sidebar-nav-link span {
+  color: #919191;
+  margin-left: 8px; /* Adjust the spacing between the icon and label if needed */
+}

@@ -1,0 +1,138 @@
+trigger:
+- develop
+- main
+- release/*
+
+resources:
+  - repo: self
+
+pool:
+  name: 'DH-Shared-Dev-EUS-VM-AP-002'
+
+variables:
+  devDockerRegistryServiceConnection: '54061908-9430-4dbc-b93b-24819ff0b774'
+  prodDockerRegistryServiceConnection: 'f39b3c7b-7cbb-4cea-b5b1-6fa2e76683d4'
+  imageRepository: 'admindash'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+  vmImageName: 'ubuntu-latest'
+  devWebAppName: 'dh-dev-eus-appsrvc-admindash-001'
+  prodWebAppName: 'dh-prod-eus-appsrvc-admindash-001'
+  stageWebAppName: 'dh-stage-eus-appsrvc-admindash-001'
+  devAzureSubscription: '2e7c5b6c-1611-4596-8628-01a8dfd5bcc9'
+  prodAzureSubscription: '55de5c0e-5bea-4b76-8e60-c72f678e01da'
+  devResourceGroup: 'DH-Dev-EUS-RG-001'
+  prodResourceGroup: 'DH-Prod-EUS-RG-001'
+  devContainerRegistry: 'dhdeveusacr001.azurecr.io'
+  prodContainerRegistry: 'dhprodeusacr001.azurecr.io'
+
+stages:
+
+- stage: DevBuildDeploy
+  displayName: Build and Deploy to Development
+  condition: eq(variables['Build.SourceBranchName'], 'develop')
+  jobs:
+  - job: BuildDeployDev
+    displayName: Build and Deploy to Dev
+    steps:
+      - task: Docker@2
+        displayName: Build Dev Image
+        inputs:
+          command: build
+          repository: $(imageRepository)
+          dockerfile: $(dockerfilePath)
+          containerRegistry: $(devDockerRegistryServiceConnection)
+          tags: |
+            latest
+            v1.0.$(tag)
+          arguments: --build-arg APP_VERSION=v1.0.$(tag)
+
+      - task: Docker@2
+        displayName: Push Dev Image
+        inputs:
+          command: push
+          repository: $(imageRepository)
+          containerRegistry: $(devDockerRegistryServiceConnection)
+          tags: |
+            latest
+            v1.0.$(tag)
+
+      - task: AzureWebAppContainer@1
+        displayName: Deploy to Dev Web App
+        inputs:
+          azureSubscription: $(devAzureSubscription)
+          appName: $(devWebAppName)
+          containers: $(devContainerRegistry)/$(imageRepository):latest
+          configurationStrings: |
+            WEBSITES_PORT=5173
+
+- stage: BuildProdImage
+  displayName: Build and Push for Staging/Production
+  condition: or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), eq(variables['Build.SourceBranchName'], 'main'))
+  jobs:
+  - job: BuildProd
+    displayName: Build and Push Prod Image
+    steps:
+      - task: Docker@2
+        displayName: Build Prod Image
+        inputs:
+          command: build
+          repository: $(imageRepository)
+          dockerfile: $(dockerfilePath)
+          containerRegistry: $(prodDockerRegistryServiceConnection)
+          tags: |
+            latest
+            v1.0.$(tag)
+          arguments: --build-arg APP_VERSION=v1.0.$(tag)
+
+      - task: Docker@2
+        displayName: Push Prod Image
+        inputs:
+          command: push
+          repository: $(imageRepository)
+          containerRegistry: $(prodDockerRegistryServiceConnection)
+          tags: |
+            latest
+            v1.0.$(tag)
+
+- stage: StageDeploy
+  displayName: Deploy to Staging
+  dependsOn: BuildProdImage
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+  jobs:
+  - deployment: StageDeployment
+    displayName: Staging Deployment
+    environment: Staging
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: AzureWebAppContainer@1
+              displayName: Deploy to Staging Web App
+              inputs:
+                azureSubscription: $(prodAzureSubscription)
+                appName: $(stageWebAppName)
+                containers: $(prodContainerRegistry)/$(imageRepository):v1.0.$(tag)
+                configurationStrings: |
+                  WEBSITES_PORT=5173
+
+- stage: ProdDeploy
+  displayName: Deploy to Production
+  dependsOn: BuildProdImage
+  condition: eq(variables['Build.SourceBranchName'], 'main')
+  jobs:
+  - deployment: ProdDeployment
+    displayName: Production Deployment
+    environment: Production
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: AzureWebAppContainer@1
+              displayName: Deploy to Production Web App
+              inputs:
+                azureSubscription: $(prodAzureSubscription)
+                appName: $(prodWebAppName)
+                containers: $(prodContainerRegistry)/$(imageRepository):v1.0.$(tag)
+                configurationStrings: |
+                  WEBSITES_PORT=5173
