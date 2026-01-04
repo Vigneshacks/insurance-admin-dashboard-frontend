@@ -86,3 +86,9 @@ The video demonstrates:
 
 ```bash
 npm install
+
+Run the application
+npm run dev
+
+
+⚠️ Backend APIs are not connected in this repository.
