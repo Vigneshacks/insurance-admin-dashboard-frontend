@@ -1,50 +1,88 @@
-# React + TypeScript + Vite
+# 🏥 Insurance Admin Dashboard (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **role-based admin dashboard** built using **React + TypeScript**, designed to manage insurance users, hospitals, and policy assignments with multiple access levels.
 
-Currently, two official plugins are available:
+> ⚠️ This repository contains the **frontend only**.  
+> The backend (FastAPI) is **not included**, but the complete working flow is demonstrated via a **demo video**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📌 Project Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+This project simulates a **real-world insurance management system** with **multi-level user privileges**.  
+It focuses on **frontend architecture, role-based access control (RBAC), and scalable UI design** commonly used in enterprise applications.
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+## 🔐 User Roles & Privileges
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 👑 Super Admin
+- Full system access
+- Manage admins and users
+- View all hospitals and insurance users
+- Assign and manage insurance policies
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
+### 🛠 Admin
+- Edit and delete insurance users
+- Assign / update insurance policies
+- View hospital and user details
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+### 👤 User
+- View assigned insurance details
+- Read-only access
+
+---
+
+## ✨ Key Features
+
+- Role-Based Access Control (RBAC)
+- Insurance user management
+- Hospital listing and mapping
+- Insurance assignment and updates
+- Modular component-based architecture
+- Responsive admin dashboard UI
+- Clean separation of UI and API service layer
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- React
+- TypeScript
+- Vite
+- Material UI
+- Tailwind CSS
+
+### Backend (Not Included)
+- FastAPI
+- REST APIs
+- Role-based authentication & authorization
+
+> API calls are structured assuming a FastAPI backend.
+
+---
+
+## 🎥 Demo Video
+
+📽 **Project Demo**  
+👉 _Add your video link here (YouTube / Google Drive)_
+
+The video demonstrates:
+- Login with different roles
+- Admin & Super Admin privileges
+- Insurance assignment flow
+- UI interactions with backend APIs
+
+---
+
+## 🚀 Getting Started (Frontend Only)
+
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm or yarn
+
+### Installation
+
+```bash
+npm install
